@@ -1,0 +1,29 @@
+{
+  "name": "com.jorishoef.generic-ui-items",
+  "version": "1.0.0",
+  "displayName": "Generic UI Items",
+  "description": "A lightweight Unity UGUI collection-to-UI presentation package for creating, updating, removing, and synchronizing UI item prefabs from data collections.",
+  "unity": "2021.3",
+  "author": {
+    "name": "Joris Hoef"
+  },
+  "keywords": [
+    "ui",
+    "ugui",
+    "collection",
+    "list",
+    "scrollview",
+    "data",
+    "presentation"
+  ],
+  "dependencies": {
+    "com.unity.ugui": "1.0.0"
+  },
+  "samples": [
+    {
+      "displayName": "Basic Usage",
+      "description": "Example scene showing list, scroll view, add, update, remove, clear, and identity-based synchronization.",
+      "path": "Samples~/BasicUsage"
+    }
+  ]
+}

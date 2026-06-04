@@ -1,0 +1,48 @@
+name: Unity EditMode Tests
+
+on:
+  workflow_dispatch:
+
+jobs:
+  editmode:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create package test project manifest
+        shell: bash
+        run: |
+          mkdir -p GenericUIItems-TestProject/Packages GenericUIItems-TestProject/Assets
+          package_path="${GITHUB_WORKSPACE}"
+          cat > GenericUIItems-TestProject/Packages/manifest.json <<JSON
+          {
+            "dependencies": {
+              "com.jorishoef.generic-ui-items": "file:${package_path}",
+              "com.unity.ugui": "1.0.0",
+              "com.unity.test-framework": "1.1.33"
+            },
+            "testables": [
+              "com.jorishoef.generic-ui-items"
+            ]
+          }
+          JSON
+
+      - name: Run EditMode tests
+        uses: game-ci/unity-test-runner@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          projectPath: GenericUIItems-TestProject
+          unityVersion: 2021.3.45f1
+          testMode: editmode
+
+      - name: Upload test artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: unity-editmode-test-results
+          path: artifacts

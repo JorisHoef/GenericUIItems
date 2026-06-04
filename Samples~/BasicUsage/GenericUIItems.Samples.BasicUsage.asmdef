@@ -1,0 +1,16 @@
+{
+  "name": "GenericUIItems.Samples.BasicUsage",
+  "rootNamespace": "JorisHoef.GenericUIItems.Samples.BasicUsage",
+  "references": [
+    "GenericUIItems"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}
