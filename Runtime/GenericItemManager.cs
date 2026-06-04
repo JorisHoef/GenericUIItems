@@ -6,13 +6,13 @@ using Object = UnityEngine.Object;
 
 namespace JorisHoef.GenericUIItems
 {
-    public sealed class GenericItemManager<T, TKey>
+    internal sealed class GenericItemManager<T, TKey>
     {
         private readonly Dictionary<TKey, ManagedItem> _itemsByKey = new Dictionary<TKey, ManagedItem>();
         private readonly GameObject _itemPrefab;
         private readonly Func<T, TKey> _keySelector;
 
-        public GenericItemManager(GameObject itemPrefab, Func<T, TKey> keySelector)
+        internal GenericItemManager(GameObject itemPrefab, Func<T, TKey> keySelector)
         {
             _itemPrefab = itemPrefab != null
                 ? itemPrefab

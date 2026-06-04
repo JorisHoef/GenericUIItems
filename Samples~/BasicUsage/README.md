@@ -2,7 +2,7 @@
 
 This sample contains a small runtime example for creating and synchronizing UI item prefabs from a data collection.
 
-Use `BasicUsageItem` on the root GameObject of an item prefab and assign a `Text` component to its label field. Use `BasicUsageExample` on any scene object, then assign a parent `RectTransform` and that item prefab.
+Open `BasicUsage.unity` and enter Play Mode to see the default scene create a list from data. You can also use `BasicUsageItem` on the root GameObject of an item prefab and assign a `Text` component to its label field. Use `BasicUsageExample` on any scene object, then assign a parent `RectTransform` and that item prefab.
 
 The sample methods show:
 

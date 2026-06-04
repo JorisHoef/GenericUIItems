@@ -11,6 +11,11 @@ namespace JorisHoef.GenericUIItems.Samples.BasicUsage
         {
             base.SetData(data);
 
+            if (label == null)
+            {
+                label = GetComponentInChildren<Text>();
+            }
+
             if (label != null)
             {
                 label.text = data != null ? data.Label : string.Empty;

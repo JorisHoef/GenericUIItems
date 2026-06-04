@@ -19,7 +19,6 @@ namespace JorisHoef.GenericUIItems
         public RectTransform Parent { get; }
         public RectTransform NestingChild { get; private set; }
         public int Count => _itemManager.Count;
-        public GenericItemManager<T, TKey> ItemManager => _itemManager;
 
         public void SetNestingChild(RectTransform childTransform)
         {
