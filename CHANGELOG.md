@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Added nested UI item sample coverage using parent item composition.
+- Moved Basic Usage sample UI construction into a sample-only layout helper.
+- Added EditMode tests for nested child containers, scoped child keys, and nested cleanup.
+
 ## 1.0.0
 
 - Created canonical UPM package layout.

@@ -44,6 +44,37 @@ container.ReplaceAll(nextCharacters);
 container.Clear();
 ```
 
+## Nested UI Items
+
+Nested UI is handled by composition. The parent item prefab still implements `ISettableItem<TParent>`, and that parent item owns a child `GenericUIContainer<TChild, TChildKey>` under one of its own `RectTransform` children.
+
+```csharp
+public sealed class CategoryItem : GenericItem<CategoryData>
+{
+    [SerializeField] private RectTransform childrenParent;
+    [SerializeField] private GameObject childItemPrefab;
+
+    private GenericUIContainer<ItemData, string> _children;
+
+    public override void SetData(CategoryData data)
+    {
+        base.SetData(data);
+
+        if (_children == null)
+        {
+            _children = new GenericUIContainer<ItemData, string>(
+                childrenParent,
+                childItemPrefab,
+                item => item.Id);
+        }
+
+        _children.SetItems(data.Items);
+    }
+}
+```
+
+Each parent item owns its own child container, so child keys are scoped to that parent. Removing or clearing the parent container destroys the parent item GameObject and its nested child UI hierarchy.
+
 ## Runtime API
 
 - `ISettableItem<T>` is the prefab contract. Implement `SetData(T data)` on the root component of each UI item prefab.
