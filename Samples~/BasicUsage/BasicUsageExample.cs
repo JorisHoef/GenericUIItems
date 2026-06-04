@@ -141,7 +141,7 @@ namespace JorisHoef.GenericUIItems.Samples.BasicUsage
             labelText.alignment = TextAnchor.MiddleLeft;
             labelText.color = Color.white;
             labelText.fontSize = 16;
-            labelText.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+            labelText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
 
             return root;
         }
