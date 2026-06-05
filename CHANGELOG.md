@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Improved README structure and clarified package branch, samples, API, integrations, and limitations.
 - Added nested UI item sample coverage using parent item composition.
 - Moved Basic Usage sample UI construction into a sample-only layout helper.
 - Added EditMode tests for nested child containers, scoped child keys, and nested cleanup.

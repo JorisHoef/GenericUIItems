@@ -1,22 +1,54 @@
 # Generic UI Items
 
-Generic UI Items is a lightweight Unity UGUI package for presenting data collections as UI item prefabs.
+## Overview
 
-The package is intentionally small: provide a parent `RectTransform`, an item prefab implementing `ISettableItem<T>`, and an explicit key selector. The container creates, updates, removes, clears, and synchronizes item instances without static caches.
+Generic UI Items is a Unity UGUI runtime package for presenting data collections as UI item prefabs.
+
+The package keeps the workflow explicit: provide a parent `RectTransform`, an item prefab whose root component implements `ISettableItem<T>`, and a key selector. The container creates, updates, removes, clears, and synchronizes item instances without static caches or project-specific UI architecture.
+
+Package ID: `com.jorishoef.generic-ui-items`
 
 ## Installation
 
-Add the package to a Unity project's `Packages/manifest.json`:
+Install the package through Unity Package Manager with a Git URL:
 
 ```json
 {
   "dependencies": {
-    "com.jorishoef.generic-ui-items": "file:C:/Repositories/GenericUIItems"
+    "com.jorishoef.generic-ui-items": "https://github.com/JorisHoef/GenericUIItems.git#develop"
   }
 }
 ```
 
-## Basic Usage
+The current package-ready branch in this repo is `develop`. The package requires Unity `2021.3` or newer and depends on `com.unity.ugui`.
+
+For local development, reference the package by file path from a separate Unity test project:
+
+```json
+"com.jorishoef.generic-ui-items": "file:C:/Repositories/GenericUIItems"
+```
+
+## Core Concepts
+
+`ISettableItem<T>` is the prefab contract. The root component of each item prefab must implement `SetData(T data)`.
+
+`GenericUIContainer<T, TKey>` owns a parent transform, item prefab, and `Func<T, TKey>` key selector. Keys define identity for add, update, remove, and replacement.
+
+`ReplaceAll` is the synchronization operation. It updates existing keyed items, adds new keyed items, removes missing keyed items, and reorders transforms to match the input collection.
+
+Nested UI support is composition. A parent item can own its own child `GenericUIContainer<TChild, TChildKey>` under one of its child transforms. Child keys are scoped to the parent item that owns the child container.
+
+## Public API
+
+- `ISettableItem<T>`: item prefab contract.
+- `GenericItem<T>`: optional `MonoBehaviour` base class that stores the latest `Data`.
+- `IGenericUIContainer<T, TKey>`: common container operations.
+- `GenericUIContainer<T, TKey>`: container for item prefabs under a `RectTransform`.
+- `GenericScrollView<T, TKey>`: container wrapper around `ScrollRect.content`.
+- `RectTransformExtensions.CreateGenericUIContainer`: convenience constructor.
+- `ScrollRectExtensions.CreateGenericScrollView`: convenience constructor.
+
+Flat list workflow:
 
 ```csharp
 using JorisHoef.GenericUIItems;
@@ -44,9 +76,7 @@ container.ReplaceAll(nextCharacters);
 container.Clear();
 ```
 
-## Nested UI Items
-
-Nested UI is handled by composition. The parent item prefab still implements `ISettableItem<TParent>`, and that parent item owns a child `GenericUIContainer<TChild, TChildKey>` under one of its own `RectTransform` children.
+Nested item workflow:
 
 ```csharp
 public sealed class CategoryItem : GenericItem<CategoryData>
@@ -54,55 +84,59 @@ public sealed class CategoryItem : GenericItem<CategoryData>
     [SerializeField] private RectTransform childrenParent;
     [SerializeField] private GameObject childItemPrefab;
 
-    private GenericUIContainer<ItemData, string> _children;
+    private GenericUIContainer<ItemData, string> children;
 
     public override void SetData(CategoryData data)
     {
         base.SetData(data);
 
-        if (_children == null)
+        if (children == null)
         {
-            _children = new GenericUIContainer<ItemData, string>(
+            children = new GenericUIContainer<ItemData, string>(
                 childrenParent,
                 childItemPrefab,
                 item => item.Id);
         }
 
-        _children.SetItems(data.Items);
+        children.SetItems(data.Items);
     }
 }
 ```
 
-Each parent item owns its own child container, so child keys are scoped to that parent. Removing or clearing the parent container destroys the parent item GameObject and its nested child UI hierarchy.
+## Samples
 
-## Runtime API
+The package contains one sample entry:
 
-- `ISettableItem<T>` is the prefab contract. Implement `SetData(T data)` on the root component of each UI item prefab.
-- `GenericItem<T>` is an optional `MonoBehaviour` base class that stores the latest `Data` value.
-- `GenericUIContainer<T, TKey>` manages item prefabs under a `RectTransform`.
-- `GenericScrollView<T, TKey>` composes a `GenericUIContainer<T, TKey>` over a `ScrollRect.content`.
-- `RectTransformExtensions.CreateGenericUIContainer` and `ScrollRectExtensions.CreateGenericScrollView` are convenience constructors only; they do not cache instances.
+- `Basic Usage`: `Samples~/BasicUsage/BasicUsage.unity`
 
-## Identity And Synchronization
+The sample scene includes two workflows:
 
-Identity is always explicit through `Func<T, TKey> keySelector`. `ReplaceAll` updates existing keyed items, adds new keyed items, removes missing keyed items, and reorders transforms to match the input collection.
+- `BasicUsageExample`: flat list operations for `SetItems`, `Add`, `Update`, `Remove`, `ReplaceAll`, and `Clear`.
+- `NestedCategoriesExample`: nested parent categories where each `NestedCategoryItem` owns a child `GenericUIContainer<NestedItemData, string>`.
 
-Duplicate keys throw `ArgumentException`. Null data throws `ArgumentNullException`. Null keys throw `InvalidOperationException`.
+`BasicUsageSampleLayout` is sample-only. It creates default UGUI scene objects and item templates when fields are not assigned, keeping layout setup out of the runtime container.
 
-## Development Test Project
+## Integrations
 
-Use a separate Unity project when developing the package:
+Generic UI Items has no compiled integration assembly and does not reference Core State, API Helper, Session Helper, or the Package Installer.
 
-```text
-GenericUIItems
-  -> file: package
-GenericUIItems-TestProject
-```
+It can be composed with Core State in project code by using repository items as the data source for a `GenericUIContainer<T, TKey>`, but this package does not include a Core State adapter.
 
-The test project should consume:
+## Versioning
 
-```json
-"com.jorishoef.generic-ui-items": "file:C:/Repositories/GenericUIItems"
-```
+Current package version: `1.0.0`.
 
-Edit package code in `C:/Repositories/GenericUIItems`, not in the test project copy.
+Branch strategy:
+
+- `develop`: current package-ready development branch.
+- `main`: repository default branch, but it does not currently contain this UPM package layout.
+
+Use a commit hash or release tag for immutable installs when the repository publishes one.
+
+## Limitations
+
+- The package is UGUI-focused and depends on `com.unity.ugui`.
+- Item prefabs must expose `ISettableItem<T>` on a root component.
+- Keys must be non-null and unique within each container.
+- The package does not provide MVVM, data persistence, app state management, pooling, virtualization, or async loading.
+- Nested UI is built by composing containers in item components; there is no separate nested-container framework.
