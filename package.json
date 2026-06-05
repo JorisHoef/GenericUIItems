@@ -1,11 +1,11 @@
 {
   "name": "com.jorishoef.generic-ui-items",
   "version": "1.0.0",
-  "displayName": "Generic UI Items",
+  "displayName": "JorisHoef Generic UI Items",
   "description": "A lightweight Unity UGUI collection-to-UI presentation package for creating, updating, removing, and synchronizing UI item prefabs from data collections.",
   "unity": "2021.3",
   "author": {
-    "name": "Joris Hoef"
+    "name": "JorisHoef"
   },
   "keywords": [
     "ui",

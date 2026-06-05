@@ -1,8 +1,8 @@
-# Generic UI Items
+# JorisHoef Generic UI Items
 
 ## Overview
 
-Generic UI Items is a Unity UGUI runtime package for presenting data collections as UI item prefabs.
+JorisHoef Generic UI Items is a Unity UGUI runtime package for presenting data collections as UI item prefabs.
 
 The package keeps the workflow explicit: provide a parent `RectTransform`, an item prefab whose root component implements `ISettableItem<T>`, and a key selector. The container creates, updates, removes, clears, and synchronizes item instances without static caches or project-specific UI architecture.
 
