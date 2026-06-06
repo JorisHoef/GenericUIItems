@@ -10,6 +10,9 @@ The flat sample methods show:
 - `Add`
 - `Update`
 - `Remove`
+- `SelectFirst`
+- `SelectSecond`
+- `ClearSelectedItem`
 - `ReplaceAll`
 - `Clear`
 
@@ -19,8 +22,14 @@ The identity selector is explicit:
 _container = new GenericUIContainer<ExampleItemData, string>(
     parent,
     itemPrefab,
-    item => item.Id);
+    item => item.Id,
+    new GraphicTintGenericUIItemVisual<string, ExampleItemData>(
+        normalColor,
+        selectedColor,
+        hoveredColor));
 ```
+
+Selection visuals are supplied explicitly by key. `GenericUIItems` does not know where the selected key came from; a project, bridge, input adapter, or state package can call `SetSelectedKey(key)` or `ClearSelectedKey()` when appropriate.
 
 ## Nested Categories
 

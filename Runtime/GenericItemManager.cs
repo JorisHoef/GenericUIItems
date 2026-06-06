@@ -30,6 +30,18 @@ namespace JorisHoef.GenericUIItems
                 .ToList();
         }
 
+        public IReadOnlyList<ManagedItemSnapshot> GetItemSnapshots()
+        {
+            return _itemsByKey
+                .Select(pair => new ManagedItemSnapshot(
+                    pair.Key,
+                    pair.Value.Data,
+                    pair.Value.SettableItem,
+                    pair.Value.GameObject))
+                .OrderBy(item => item.GameObject.transform.GetSiblingIndex())
+                .ToList();
+        }
+
         public bool TryGetItem(TKey key, out ISettableItem<T> item)
         {
             if (IsNullKey(key))
@@ -48,9 +60,36 @@ namespace JorisHoef.GenericUIItems
             return false;
         }
 
+        public bool TryGetItemSnapshot(TKey key, out ManagedItemSnapshot item)
+        {
+            if (IsNullKey(key))
+            {
+                item = default;
+                return false;
+            }
+
+            if (_itemsByKey.TryGetValue(key, out ManagedItem managedItem))
+            {
+                item = new ManagedItemSnapshot(
+                    key,
+                    managedItem.Data,
+                    managedItem.SettableItem,
+                    managedItem.GameObject);
+                return true;
+            }
+
+            item = default;
+            return false;
+        }
+
         public void SetItems(IEnumerable<T> items, Transform parent)
         {
             ReplaceAll(items, parent);
+        }
+
+        public TKey GetKeyForItem(T item)
+        {
+            return GetKey(item);
         }
 
         public void ReplaceAll(IEnumerable<T> items, Transform parent)
@@ -232,6 +271,26 @@ namespace JorisHoef.GenericUIItems
             }
 
             public T Data { get; set; }
+            public ISettableItem<T> SettableItem { get; }
+            public GameObject GameObject { get; }
+        }
+
+        public readonly struct ManagedItemSnapshot
+        {
+            public ManagedItemSnapshot(
+                TKey key,
+                T data,
+                ISettableItem<T> settableItem,
+                GameObject gameObject)
+            {
+                Key = key;
+                Data = data;
+                SettableItem = settableItem;
+                GameObject = gameObject;
+            }
+
+            public TKey Key { get; }
+            public T Data { get; }
             public ISettableItem<T> SettableItem { get; }
             public GameObject GameObject { get; }
         }

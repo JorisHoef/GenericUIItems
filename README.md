@@ -36,6 +36,8 @@ For local development, reference the package by file path from a separate Unity 
 
 `ReplaceAll` is the synchronization operation. It updates existing keyed items, adds new keyed items, removes missing keyed items, and reorders transforms to match the input collection.
 
+Visual strategies are optional. `GenericUIItems` decides which item view belongs to which data key; a caller supplies the selected or hovered key explicitly, and an `IGenericUIItemVisual<TKey, T>` decides how normal, selected, and hovered states look. Selection state and visual representation stay separate, so CoreState bridges, ObjectSelection bridges, DOTween visuals, custom tween packages, outline renderers, shader effects, Animator states, or VFX can be added without changing the container architecture.
+
 Nested UI support is composition. A parent item can own its own child `GenericUIContainer<TChild, TChildKey>` under one of its child transforms. Child keys are scoped to the parent item that owns the child container.
 
 ## Public API
@@ -45,6 +47,10 @@ Nested UI support is composition. A parent item can own its own child `GenericUI
 - `IGenericUIContainer<T, TKey>`: common container operations.
 - `GenericUIContainer<T, TKey>`: container for item prefabs under a `RectTransform`.
 - `GenericScrollView<T, TKey>`: container wrapper around `ScrollRect.content`.
+- `IGenericUIItemVisual<TKey, T>`: optional item visual strategy for normal, selected, and hovered states.
+- `IGenericUISelectionVisuals<TKey, T>`: optional container contract for applying item visual state by explicit selected or hovered keys.
+- `GraphicTintGenericUIItemVisual<TKey, T>`: UGUI tint visual strategy for item root graphics.
+- `TransformScaleGenericUIItemVisual<TKey, T>`: transform scale visual strategy for item views.
 - `RectTransformExtensions.CreateGenericUIContainer`: convenience constructor.
 - `ScrollRectExtensions.CreateGenericScrollView`: convenience constructor.
 
@@ -66,13 +72,19 @@ public sealed class CharacterItem : GenericItem<CharacterData>
 var container = new GenericUIContainer<CharacterData, string>(
     parentRectTransform,
     itemPrefab,
-    character => character.Id);
+    character => character.Id,
+    new GraphicTintGenericUIItemVisual<string, CharacterData>(
+        normalColor,
+        selectedColor,
+        hoveredColor));
 
 container.SetItems(characters);
+container.SetSelectedKey(selectedCharacterId);
 container.Add(newCharacter);
 container.Update(updatedCharacter);
 container.Remove(characterId);
 container.ReplaceAll(nextCharacters);
+container.ClearSelectedKey();
 container.Clear();
 ```
 
@@ -111,7 +123,7 @@ The package contains one sample entry:
 
 The sample scene includes two workflows:
 
-- `BasicUsageExample`: flat list operations for `SetItems`, `Add`, `Update`, `Remove`, `ReplaceAll`, and `Clear`.
+- `BasicUsageExample`: flat list operations for `SetItems`, `Add`, `Update`, `Remove`, explicit selection visuals, `ReplaceAll`, and `Clear`.
 - `NestedCategoriesExample`: nested parent categories where each `NestedCategoryItem` owns a child `GenericUIContainer<NestedItemData, string>`.
 
 `BasicUsageSampleLayout` is sample-only. It creates default UGUI scene objects and item templates when fields are not assigned, keeping layout setup out of the runtime container.
@@ -138,5 +150,5 @@ Use a commit hash or release tag for immutable installs when the repository publ
 - The package is UGUI-focused and depends on `com.unity.ugui`.
 - Item prefabs must expose `ISettableItem<T>` on a root component.
 - Keys must be non-null and unique within each container.
-- The package does not provide MVVM, data persistence, app state management, pooling, virtualization, or async loading.
+- The package does not provide MVVM, data persistence, app state management, hidden selection synchronization, pooling, virtualization, or async loading.
 - Nested UI is built by composing containers in item components; there is no separate nested-container framework.

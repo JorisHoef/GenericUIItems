@@ -19,13 +19,18 @@ namespace JorisHoef.GenericUIItems.Samples.BasicUsage
             _container = new GenericUIContainer<ExampleItemData, string>(
                 parent,
                 itemPrefab,
-                item => item.Id);
+                item => item.Id,
+                new GraphicTintGenericUIItemVisual<string, ExampleItemData>(
+                    new Color(0.12f, 0.16f, 0.20f, 0.9f),
+                    new Color(0.16f, 0.42f, 0.95f, 1f),
+                    new Color(0.20f, 0.24f, 0.28f, 1f)));
 
             _container.SetItems(new List<ExampleItemData>
             {
                 new ExampleItemData("1", "First item"),
                 new ExampleItemData("2", "Second item")
             });
+            _container.SetSelectedKey("1");
         }
 
         public void Add()
@@ -45,6 +50,21 @@ namespace JorisHoef.GenericUIItems.Samples.BasicUsage
             _container.Remove("1");
         }
 
+        public void SelectFirst()
+        {
+            _container.SetSelectedKey("1");
+        }
+
+        public void SelectSecond()
+        {
+            _container.SetSelectedKey("2");
+        }
+
+        public void ClearSelectedItem()
+        {
+            _container.ClearSelectedKey();
+        }
+
         public void ReplaceAll()
         {
             _container.ReplaceAll(new[]
@@ -57,6 +77,7 @@ namespace JorisHoef.GenericUIItems.Samples.BasicUsage
         public void Clear()
         {
             _container.Clear();
+            _container.ClearSelectedKey();
         }
 
         private void EnsureSetup()
