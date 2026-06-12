@@ -1,16 +1,16 @@
 using System;
 using UnityEngine;
 
-namespace JorisHoef.GenericUIItems
+namespace Deucarian.UIBinding
 {
     public static class RectTransformExtensions
     {
-        public static GenericUIContainer<T, TKey> CreateGenericUIContainer<T, TKey>(
+        public static UIBindingContainer<T, TKey> CreateUIBindingContainer<T, TKey>(
             this RectTransform parent,
             GameObject itemPrefab,
             Func<T, TKey> keySelector)
         {
-            return new GenericUIContainer<T, TKey>(parent, itemPrefab, keySelector);
+            return new UIBindingContainer<T, TKey>(parent, itemPrefab, keySelector);
         }
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace JorisHoef.GenericUIItems
+namespace Deucarian.UIBinding
 {
     /// <summary>
     /// Optional base class for UI item prefabs that want to keep the latest assigned data.

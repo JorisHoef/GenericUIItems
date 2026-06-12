@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace JorisHoef.GenericUIItems
+namespace Deucarian.UIBinding
 {
-    public interface IGenericUIContainer<T, in TKey>
+    public interface IUIBindingContainer<T, in TKey>
     {
         RectTransform Parent { get; }
         int Count { get; }

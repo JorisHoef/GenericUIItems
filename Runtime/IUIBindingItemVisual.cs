@@ -1,11 +1,11 @@
-namespace JorisHoef.GenericUIItems
+namespace Deucarian.UIBinding
 {
     /// <summary>
-    /// Defines how a Generic UI item should look for normal, selected, and hovered states.
+    /// Defines how a UI Binding item should look for normal, selected, and hovered states.
     /// </summary>
     /// <typeparam name="TKey">The stable item key type.</typeparam>
     /// <typeparam name="T">The data type displayed by the UI item.</typeparam>
-    public interface IGenericUIItemVisual<TKey, T>
+    public interface IUIBindingItemVisual<TKey, T>
     {
         /// <summary>
         /// Applies normal visuals to an item view.

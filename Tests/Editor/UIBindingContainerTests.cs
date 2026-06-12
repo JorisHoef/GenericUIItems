@@ -4,9 +4,9 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace JorisHoef.GenericUIItems.Tests
+namespace Deucarian.UIBinding.Tests
 {
-    public sealed class GenericUIContainerTests
+    public sealed class UIBindingContainerTests
     {
         private RectTransform _parent;
         private GameObject _prefab;
@@ -35,7 +35,7 @@ namespace JorisHoef.GenericUIItems.Tests
         [Test]
         public void SetItems_CreatesItems()
         {
-            GenericUIContainer<TestData, string> container = CreateContainer();
+            UIBindingContainer<TestData, string> container = CreateContainer();
 
             container.SetItems(new[]
             {
@@ -51,7 +51,7 @@ namespace JorisHoef.GenericUIItems.Tests
         [Test]
         public void ReplaceAll_UpdatesAddsRemovesAndPreservesExistingItemIdentity()
         {
-            GenericUIContainer<TestData, string> container = CreateContainer();
+            UIBindingContainer<TestData, string> container = CreateContainer();
             container.SetItems(new[]
             {
                 new TestData("one", "First"),
@@ -77,7 +77,7 @@ namespace JorisHoef.GenericUIItems.Tests
         [Test]
         public void Add_CreatesSingleItem()
         {
-            GenericUIContainer<TestData, string> container = CreateContainer();
+            UIBindingContainer<TestData, string> container = CreateContainer();
 
             ISettableItem<TestData> addedItem = container.Add(new TestData("one", "First"));
 
@@ -89,7 +89,7 @@ namespace JorisHoef.GenericUIItems.Tests
         [Test]
         public void Add_WithDuplicateKeyThrows()
         {
-            GenericUIContainer<TestData, string> container = CreateContainer();
+            UIBindingContainer<TestData, string> container = CreateContainer();
             container.Add(new TestData("one", "First"));
 
             Assert.Throws<ArgumentException>(() => container.Add(new TestData("one", "Duplicate")));
@@ -98,7 +98,7 @@ namespace JorisHoef.GenericUIItems.Tests
         [Test]
         public void Update_UsesExplicitKeySelector()
         {
-            GenericUIContainer<TestData, string> container = CreateContainer();
+            UIBindingContainer<TestData, string> container = CreateContainer();
             container.Add(new TestData("one", "First"));
 
             bool updated = container.Update(new TestData("one", "First updated"));
@@ -112,7 +112,7 @@ namespace JorisHoef.GenericUIItems.Tests
         [Test]
         public void Update_WhenKeyDoesNotExistReturnsFalse()
         {
-            GenericUIContainer<TestData, string> container = CreateContainer();
+            UIBindingContainer<TestData, string> container = CreateContainer();
 
             bool updated = container.Update(new TestData("missing", "Missing"));
 
@@ -123,7 +123,7 @@ namespace JorisHoef.GenericUIItems.Tests
         [Test]
         public void Remove_RemovesItemByKey()
         {
-            GenericUIContainer<TestData, string> container = CreateContainer();
+            UIBindingContainer<TestData, string> container = CreateContainer();
             container.SetItems(new[]
             {
                 new TestData("one", "First"),
@@ -141,7 +141,7 @@ namespace JorisHoef.GenericUIItems.Tests
         [Test]
         public void Clear_RemovesAllItems()
         {
-            GenericUIContainer<TestData, string> container = CreateContainer();
+            UIBindingContainer<TestData, string> container = CreateContainer();
             container.SetItems(new[]
             {
                 new TestData("one", "First"),
@@ -157,8 +157,8 @@ namespace JorisHoef.GenericUIItems.Tests
         [Test]
         public void Containers_DoNotShareStaticCaches()
         {
-            GenericUIContainer<TestData, string> first = CreateContainer();
-            GenericUIContainer<TestData, string> second = CreateContainer();
+            UIBindingContainer<TestData, string> first = CreateContainer();
+            UIBindingContainer<TestData, string> second = CreateContainer();
 
             first.Add(new TestData("one", "First"));
             second.Add(new TestData("two", "Second"));
@@ -173,7 +173,7 @@ namespace JorisHoef.GenericUIItems.Tests
         [Test]
         public void SetItems_WithDuplicateKeysThrows()
         {
-            GenericUIContainer<TestData, string> container = CreateContainer();
+            UIBindingContainer<TestData, string> container = CreateContainer();
 
             Assert.Throws<ArgumentException>(() => container.SetItems(new[]
             {
@@ -185,7 +185,7 @@ namespace JorisHoef.GenericUIItems.Tests
         [Test]
         public void Add_WhenKeySelectorReturnsNullThrows()
         {
-            GenericUIContainer<TestData, string> container = new GenericUIContainer<TestData, string>(
+            UIBindingContainer<TestData, string> container = new UIBindingContainer<TestData, string>(
                 _parent,
                 _prefab,
                 _ => null);
@@ -224,9 +224,9 @@ namespace JorisHoef.GenericUIItems.Tests
             }
         }
 
-        private GenericUIContainer<TestData, string> CreateContainer()
+        private UIBindingContainer<TestData, string> CreateContainer()
         {
-            return new GenericUIContainer<TestData, string>(_parent, _prefab, data => data.Id);
+            return new UIBindingContainer<TestData, string>(_parent, _prefab, data => data.Id);
         }
 
         private sealed class TestData

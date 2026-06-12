@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace JorisHoef.GenericUIItems.Samples.BasicUsage
+namespace Deucarian.UIBinding.Samples.BasicUsage
 {
     public sealed class BasicUsageSampleLayout : MonoBehaviour
     {
@@ -153,7 +153,7 @@ namespace JorisHoef.GenericUIItems.Samples.BasicUsage
             }
 
             GameObject canvasObject = new GameObject(
-                "Generic UI Items Sample Canvas",
+                "UI Binding Sample Canvas",
                 typeof(Canvas),
                 typeof(CanvasScaler),
                 typeof(GraphicRaycaster));

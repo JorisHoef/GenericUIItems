@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace JorisHoef.GenericUIItems
+namespace Deucarian.UIBinding
 {
     public sealed class GenericScrollView<T, TKey> :
-        IGenericUIContainer<T, TKey>,
-        IGenericUISelectionVisuals<TKey, T>
+        IUIBindingContainer<T, TKey>,
+        IUIBindingSelectionVisuals<TKey, T>
     {
-        private readonly GenericUIContainer<T, TKey> _container;
+        private readonly UIBindingContainer<T, TKey> _container;
 
         public GenericScrollView(ScrollRect scrollRect, GameObject itemPrefab, Func<T, TKey> keySelector)
             : this(scrollRect, itemPrefab, keySelector, null)
@@ -20,7 +20,7 @@ namespace JorisHoef.GenericUIItems
             ScrollRect scrollRect,
             GameObject itemPrefab,
             Func<T, TKey> keySelector,
-            IGenericUIItemVisual<TKey, T> itemVisual)
+            IUIBindingItemVisual<TKey, T> itemVisual)
         {
             ScrollRect = scrollRect != null
                 ? scrollRect
@@ -31,7 +31,7 @@ namespace JorisHoef.GenericUIItems
                 throw new ArgumentException("ScrollRect content must be assigned.", nameof(scrollRect));
             }
 
-            _container = new GenericUIContainer<T, TKey>(
+            _container = new UIBindingContainer<T, TKey>(
                 ScrollRect.content,
                 itemPrefab,
                 keySelector,
@@ -57,7 +57,7 @@ namespace JorisHoef.GenericUIItems
             return _container.TryGetItem(key, out item);
         }
 
-        public void SetItemVisual(IGenericUIItemVisual<TKey, T> itemVisual)
+        public void SetItemVisual(IUIBindingItemVisual<TKey, T> itemVisual)
         {
             _container.SetItemVisual(itemVisual);
         }

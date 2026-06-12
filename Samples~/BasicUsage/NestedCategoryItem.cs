@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace JorisHoef.GenericUIItems.Samples.BasicUsage
+namespace Deucarian.UIBinding.Samples.BasicUsage
 {
     public sealed class NestedCategoryItem : GenericItem<NestedCategoryData>
     {
@@ -10,7 +10,7 @@ namespace JorisHoef.GenericUIItems.Samples.BasicUsage
         [SerializeField] private RectTransform childrenParent;
         [SerializeField] private GameObject childItemPrefab;
 
-        private GenericUIContainer<NestedItemData, string> _children;
+        private UIBindingContainer<NestedItemData, string> _children;
 
         public int ChildCount => _children != null ? _children.Count : 0;
 
@@ -102,7 +102,7 @@ namespace JorisHoef.GenericUIItems.Samples.BasicUsage
                 return;
             }
 
-            _children = new GenericUIContainer<NestedItemData, string>(
+            _children = new UIBindingContainer<NestedItemData, string>(
                 childrenParent,
                 childItemPrefab,
                 item => item.Id);

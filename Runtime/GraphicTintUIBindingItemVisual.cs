@@ -2,14 +2,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace JorisHoef.GenericUIItems
+namespace Deucarian.UIBinding
 {
     /// <summary>
     /// UGUI visual strategy that tints the root Graphic of an item view.
     /// </summary>
     /// <typeparam name="TKey">The stable item key type.</typeparam>
     /// <typeparam name="T">The data type displayed by the UI item.</typeparam>
-    public sealed class GraphicTintGenericUIItemVisual<TKey, T> : IGenericUIItemVisual<TKey, T>
+    public sealed class GraphicTintUIBindingItemVisual<TKey, T> : IUIBindingItemVisual<TKey, T>
     {
         private readonly Dictionary<Graphic, Color> _originalColors = new Dictionary<Graphic, Color>();
         private readonly bool _hasNormalColor;
@@ -21,7 +21,7 @@ namespace JorisHoef.GenericUIItems
         /// Creates a tint visual that restores the original color for normal state.
         /// </summary>
         /// <param name="selectedColor">The color applied while selected.</param>
-        public GraphicTintGenericUIItemVisual(Color selectedColor)
+        public GraphicTintUIBindingItemVisual(Color selectedColor)
             : this(false, Color.white, selectedColor, selectedColor)
         {
         }
@@ -32,12 +32,12 @@ namespace JorisHoef.GenericUIItems
         /// <param name="normalColor">The color applied for normal state.</param>
         /// <param name="selectedColor">The color applied while selected.</param>
         /// <param name="hoveredColor">The color applied while hovered.</param>
-        public GraphicTintGenericUIItemVisual(Color normalColor, Color selectedColor, Color hoveredColor)
+        public GraphicTintUIBindingItemVisual(Color normalColor, Color selectedColor, Color hoveredColor)
             : this(true, normalColor, selectedColor, hoveredColor)
         {
         }
 
-        private GraphicTintGenericUIItemVisual(
+        private GraphicTintUIBindingItemVisual(
             bool hasNormalColor,
             Color normalColor,
             Color selectedColor,

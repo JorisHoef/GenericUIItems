@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace JorisHoef.GenericUIItems.Samples.BasicUsage
+namespace Deucarian.UIBinding.Samples.BasicUsage
 {
     [Serializable]
     public sealed class NestedCategoryData

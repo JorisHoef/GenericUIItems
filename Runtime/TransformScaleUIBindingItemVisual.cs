@@ -2,14 +2,14 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace JorisHoef.GenericUIItems
+namespace Deucarian.UIBinding
 {
     /// <summary>
     /// Visual strategy that scales an item view transform for selected or hovered state.
     /// </summary>
     /// <typeparam name="TKey">The stable item key type.</typeparam>
     /// <typeparam name="T">The data type displayed by the UI item.</typeparam>
-    public sealed class TransformScaleGenericUIItemVisual<TKey, T> : IGenericUIItemVisual<TKey, T>
+    public sealed class TransformScaleUIBindingItemVisual<TKey, T> : IUIBindingItemVisual<TKey, T>
     {
         private readonly Dictionary<Transform, Vector3> _originalScales =
             new Dictionary<Transform, Vector3>();
@@ -19,7 +19,7 @@ namespace JorisHoef.GenericUIItems
         /// <summary>
         /// Creates a transform scale visual with subtle selected and hovered multipliers.
         /// </summary>
-        public TransformScaleGenericUIItemVisual()
+        public TransformScaleUIBindingItemVisual()
             : this(1.04f, 1.02f)
         {
         }
@@ -27,7 +27,7 @@ namespace JorisHoef.GenericUIItems
         /// <summary>
         /// Creates a transform scale visual using uniform selected and hovered multipliers.
         /// </summary>
-        public TransformScaleGenericUIItemVisual(float selectedScaleMultiplier, float hoveredScaleMultiplier)
+        public TransformScaleUIBindingItemVisual(float selectedScaleMultiplier, float hoveredScaleMultiplier)
             : this(
                 new Vector3(selectedScaleMultiplier, selectedScaleMultiplier, selectedScaleMultiplier),
                 new Vector3(hoveredScaleMultiplier, hoveredScaleMultiplier, hoveredScaleMultiplier))
@@ -37,7 +37,7 @@ namespace JorisHoef.GenericUIItems
         /// <summary>
         /// Creates a transform scale visual.
         /// </summary>
-        public TransformScaleGenericUIItemVisual(
+        public TransformScaleUIBindingItemVisual(
             Vector3 selectedScaleMultiplier,
             Vector3 hoveredScaleMultiplier)
         {

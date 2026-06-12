@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace JorisHoef.GenericUIItems.Samples.BasicUsage
+namespace Deucarian.UIBinding.Samples.BasicUsage
 {
     public sealed class NestedCategoriesExample : MonoBehaviour
     {
@@ -9,7 +9,7 @@ namespace JorisHoef.GenericUIItems.Samples.BasicUsage
         [SerializeField] private RectTransform categoriesParent;
         [SerializeField] private GameObject categoryPrefab;
 
-        private GenericUIContainer<NestedCategoryData, string> _categories;
+        private UIBindingContainer<NestedCategoryData, string> _categories;
         private int _nextCategoryId = 3;
         private int _nextChildId = 4;
 
@@ -17,7 +17,7 @@ namespace JorisHoef.GenericUIItems.Samples.BasicUsage
         {
             EnsureSetup();
 
-            _categories = new GenericUIContainer<NestedCategoryData, string>(
+            _categories = new UIBindingContainer<NestedCategoryData, string>(
                 categoriesParent,
                 categoryPrefab,
                 category => category.Id);

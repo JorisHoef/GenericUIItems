@@ -1,8 +1,8 @@
 {
-  "name": "GenericUIItems",
-  "rootNamespace": "JorisHoef.GenericUIItems",
+  "name": "Deucarian.UIBinding.Samples.BasicUsage",
+  "rootNamespace": "Deucarian.UIBinding.Samples.BasicUsage",
   "references": [
-    "Unity.ugui"
+    "Deucarian.UIBinding"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

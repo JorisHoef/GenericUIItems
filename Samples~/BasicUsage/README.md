@@ -1,4 +1,4 @@
-# Generic UI Items Basic Usage
+# UI Binding Basic Usage
 
 This sample contains a small runtime example for creating and synchronizing UI item prefabs from a data collection.
 
@@ -19,21 +19,21 @@ The flat sample methods show:
 The identity selector is explicit:
 
 ```csharp
-_container = new GenericUIContainer<ExampleItemData, string>(
+_container = new UIBindingContainer<ExampleItemData, string>(
     parent,
     itemPrefab,
     item => item.Id,
-    new GraphicTintGenericUIItemVisual<string, ExampleItemData>(
+    new GraphicTintUIBindingItemVisual<string, ExampleItemData>(
         normalColor,
         selectedColor,
         hoveredColor));
 ```
 
-Selection visuals are supplied explicitly by key. `GenericUIItems` does not know where the selected key came from; a project, bridge, input adapter, or state package can call `SetSelectedKey(key)` or `ClearSelectedKey()` when appropriate.
+Selection visuals are supplied explicitly by key. `UIBinding` does not know where the selected key came from; a project, bridge, input adapter, or state package can call `SetSelectedKey(key)` or `ClearSelectedKey()` when appropriate.
 
 ## Nested Categories
 
-`NestedCategoriesExample` shows the nested pattern without adding runtime nesting APIs. Each `NestedCategoryItem` owns a child `GenericUIContainer<NestedItemData, string>` that renders under the category item's `Children` transform.
+`NestedCategoriesExample` shows the nested pattern without adding runtime nesting APIs. Each `NestedCategoryItem` owns a child `UIBindingContainer<NestedItemData, string>` that renders under the category item's `Children` transform.
 
 The nested sample methods show parent collection actions plus child actions through the owning parent item:
 

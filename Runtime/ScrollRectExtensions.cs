@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace JorisHoef.GenericUIItems
+namespace Deucarian.UIBinding
 {
     public static class ScrollRectExtensions
     {

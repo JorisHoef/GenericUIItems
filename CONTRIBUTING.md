@@ -2,7 +2,7 @@
 
 ## Scope
 
-Generic UI Items is a standalone UPM package. Keep it independent from APIHelper and avoid adding framework-level responsibilities such as MVVM, app state management, or general UI architecture.
+UI Binding is a standalone UPM package. Keep it independent from API and avoid adding framework-level responsibilities such as MVVM, app state management, or general UI architecture.
 
 ## Local Validation
 
@@ -15,7 +15,7 @@ pwsh ./Tools/Validate-Package.ps1
 For Unity validation, use a separate test project that references this package by file path:
 
 ```json
-"com.jorishoef.generic-ui-items": "file:C:/Repositories/GenericUIItems"
+"com.deucarian.ui-binding": "file:C:/Repositories/UIBinding"
 ```
 
 Package source should stay in this repository. Do not copy package code into the test project.

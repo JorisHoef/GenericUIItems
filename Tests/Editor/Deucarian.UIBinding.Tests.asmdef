@@ -1,8 +1,8 @@
 {
-  "name": "GenericUIItems.Tests",
-  "rootNamespace": "JorisHoef.GenericUIItems.Tests",
+  "name": "Deucarian.UIBinding.Tests",
+  "rootNamespace": "Deucarian.UIBinding.Tests",
   "references": [
-    "GenericUIItems"
+    "Deucarian.UIBinding"
   ],
   "includePlatforms": [
     "Editor"

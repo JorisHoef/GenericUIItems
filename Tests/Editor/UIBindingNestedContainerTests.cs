@@ -4,9 +4,9 @@ using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace JorisHoef.GenericUIItems.Tests
+namespace Deucarian.UIBinding.Tests
 {
-    public sealed class GenericUINestedContainerTests
+    public sealed class UIBindingNestedContainerTests
     {
         private RectTransform _parent;
         private GameObject _categoryPrefab;
@@ -43,7 +43,7 @@ namespace JorisHoef.GenericUIItems.Tests
         [Test]
         public void SetItems_CreatesNestedChildrenOwnedByParentItems()
         {
-            GenericUIContainer<CategoryData, string> container = CreateContainer();
+            UIBindingContainer<CategoryData, string> container = CreateContainer();
 
             container.SetItems(new[]
             {
@@ -65,7 +65,7 @@ namespace JorisHoef.GenericUIItems.Tests
         [Test]
         public void ReplaceAll_UpdatesExistingParentAndSynchronizesChildren()
         {
-            GenericUIContainer<CategoryData, string> container = CreateContainer();
+            UIBindingContainer<CategoryData, string> container = CreateContainer();
             container.SetItems(new[]
             {
                 new CategoryData("weapons", "Weapons", Children(("sword", "Sword"), ("bow", "Bow")))
@@ -87,7 +87,7 @@ namespace JorisHoef.GenericUIItems.Tests
         [Test]
         public void ChildOperations_AreHandledByOwningParentItem()
         {
-            GenericUIContainer<CategoryData, string> container = CreateContainer();
+            UIBindingContainer<CategoryData, string> container = CreateContainer();
             container.SetItems(new[]
             {
                 new CategoryData("weapons", "Weapons", Children(("sword", "Sword")))
@@ -107,7 +107,7 @@ namespace JorisHoef.GenericUIItems.Tests
         [Test]
         public void DuplicateChildKeys_AreScopedToEachParentItem()
         {
-            GenericUIContainer<CategoryData, string> container = CreateContainer();
+            UIBindingContainer<CategoryData, string> container = CreateContainer();
             container.SetItems(new[]
             {
                 new CategoryData("weapons", "Weapons", Children(("shared", "Weapon shared"))),
@@ -126,7 +126,7 @@ namespace JorisHoef.GenericUIItems.Tests
         [Test]
         public void RemoveParent_DestroysNestedChildHierarchy()
         {
-            GenericUIContainer<CategoryData, string> container = CreateContainer();
+            UIBindingContainer<CategoryData, string> container = CreateContainer();
             container.SetItems(new[]
             {
                 new CategoryData("weapons", "Weapons", Children(("sword", "Sword")))
@@ -147,7 +147,7 @@ namespace JorisHoef.GenericUIItems.Tests
         [Test]
         public void ClearParent_DestroysNestedChildHierarchy()
         {
-            GenericUIContainer<CategoryData, string> container = CreateContainer();
+            UIBindingContainer<CategoryData, string> container = CreateContainer();
             container.SetItems(new[]
             {
                 new CategoryData("weapons", "Weapons", Children(("sword", "Sword"))),
@@ -163,12 +163,12 @@ namespace JorisHoef.GenericUIItems.Tests
             Assert.That(childObject == null, Is.True);
         }
 
-        private GenericUIContainer<CategoryData, string> CreateContainer()
+        private UIBindingContainer<CategoryData, string> CreateContainer()
         {
-            return new GenericUIContainer<CategoryData, string>(_parent, _categoryPrefab, category => category.Id);
+            return new UIBindingContainer<CategoryData, string>(_parent, _categoryPrefab, category => category.Id);
         }
 
-        private static TestCategoryItem GetCategory(GenericUIContainer<CategoryData, string> container, string id)
+        private static TestCategoryItem GetCategory(UIBindingContainer<CategoryData, string> container, string id)
         {
             Assert.That(container.TryGetItem(id, out ISettableItem<CategoryData> item), Is.True);
             return (TestCategoryItem)item;
@@ -209,7 +209,7 @@ namespace JorisHoef.GenericUIItems.Tests
         {
             private RectTransform _childrenParent;
             [SerializeField] private GameObject _childPrefab;
-            private GenericUIContainer<ChildData, string> _children;
+            private UIBindingContainer<ChildData, string> _children;
 
             public RectTransform ChildrenParent => _childrenParent;
             public int ChildCount => _children != null ? _children.Count : 0;
@@ -270,7 +270,7 @@ namespace JorisHoef.GenericUIItems.Tests
 
                 if (_children == null)
                 {
-                    _children = new GenericUIContainer<ChildData, string>(
+                    _children = new UIBindingContainer<ChildData, string>(
                         _childrenParent,
                         _childPrefab,
                         child => child.Id);

@@ -1,4 +1,4 @@
-namespace JorisHoef.GenericUIItems
+namespace Deucarian.UIBinding
 {
     /// <summary>
     /// Implement this on the root component of a UI item prefab to receive data from a generic UI container.

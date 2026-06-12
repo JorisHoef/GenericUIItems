@@ -3,9 +3,9 @@ using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 
-namespace JorisHoef.GenericUIItems.Tests
+namespace Deucarian.UIBinding.Tests
 {
-    public sealed class GenericUISelectionVisualTests
+    public sealed class UIBindingSelectionVisualTests
     {
         private RectTransform _parent;
         private GameObject _prefab;
@@ -35,7 +35,7 @@ namespace JorisHoef.GenericUIItems.Tests
         public void SelectedKeyAppliesSelectedVisualToCorrectItem()
         {
             RecordingVisual visual = new RecordingVisual();
-            GenericUIContainer<TestData, string> container = CreateContainer(visual);
+            UIBindingContainer<TestData, string> container = CreateContainer(visual);
             SetDefaultItems(container);
 
             visual.Clear();
@@ -49,7 +49,7 @@ namespace JorisHoef.GenericUIItems.Tests
         public void PreviousSelectedItemReturnsToNormal()
         {
             RecordingVisual visual = new RecordingVisual();
-            GenericUIContainer<TestData, string> container = CreateContainer(visual);
+            UIBindingContainer<TestData, string> container = CreateContainer(visual);
             SetDefaultItems(container);
             container.SetSelectedKey("one");
 
@@ -64,7 +64,7 @@ namespace JorisHoef.GenericUIItems.Tests
         public void ClearingSelectedKeyNormalizesItems()
         {
             RecordingVisual visual = new RecordingVisual();
-            GenericUIContainer<TestData, string> container = CreateContainer(visual);
+            UIBindingContainer<TestData, string> container = CreateContainer(visual);
             SetDefaultItems(container);
             container.SetSelectedKey("one");
 
@@ -79,7 +79,7 @@ namespace JorisHoef.GenericUIItems.Tests
         public void SameSelectedKeyIsIdempotent()
         {
             RecordingVisual visual = new RecordingVisual();
-            GenericUIContainer<TestData, string> container = CreateContainer(visual);
+            UIBindingContainer<TestData, string> container = CreateContainer(visual);
             SetDefaultItems(container);
             container.SetSelectedKey("one");
 
@@ -93,7 +93,7 @@ namespace JorisHoef.GenericUIItems.Tests
         public void VisualStrategyReceivesCorrectKeyItemAndView()
         {
             RecordingVisual visual = new RecordingVisual();
-            GenericUIContainer<TestData, string> container = CreateContainer(visual);
+            UIBindingContainer<TestData, string> container = CreateContainer(visual);
             SetDefaultItems(container);
             container.TryGetItem("one", out ISettableItem<TestData> expectedView);
 
@@ -109,7 +109,7 @@ namespace JorisHoef.GenericUIItems.Tests
         [Test]
         public void RuntimeAssemblyDoesNotReferenceCoreStateOrObjectSelection()
         {
-            string[] referencedAssemblyNames = typeof(GenericUIContainer<TestData, string>)
+            string[] referencedAssemblyNames = typeof(UIBindingContainer<TestData, string>)
                 .Assembly
                 .GetReferencedAssemblies()
                 .Select(assemblyName => assemblyName.Name)
@@ -120,12 +120,12 @@ namespace JorisHoef.GenericUIItems.Tests
             Assert.That(referencedAssemblyNames.Any(name => name.Contains("ObjectSelection")), Is.False);
         }
 
-        private GenericUIContainer<TestData, string> CreateContainer(RecordingVisual visual)
+        private UIBindingContainer<TestData, string> CreateContainer(RecordingVisual visual)
         {
-            return new GenericUIContainer<TestData, string>(_parent, _prefab, data => data.Id, visual);
+            return new UIBindingContainer<TestData, string>(_parent, _prefab, data => data.Id, visual);
         }
 
-        private static void SetDefaultItems(GenericUIContainer<TestData, string> container)
+        private static void SetDefaultItems(UIBindingContainer<TestData, string> container)
         {
             container.SetItems(new[]
             {
@@ -156,7 +156,7 @@ namespace JorisHoef.GenericUIItems.Tests
             }
         }
 
-        private sealed class RecordingVisual : IGenericUIItemVisual<string, TestData>
+        private sealed class RecordingVisual : IUIBindingItemVisual<string, TestData>
         {
             public readonly List<VisualCall> Calls = new List<VisualCall>();
 

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace JorisHoef.GenericUIItems.Samples.BasicUsage
+namespace Deucarian.UIBinding.Samples.BasicUsage
 {
     public sealed class BasicUsageItem : GenericItem<ExampleItemData>
     {

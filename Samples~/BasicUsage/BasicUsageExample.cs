@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace JorisHoef.GenericUIItems.Samples.BasicUsage
+namespace Deucarian.UIBinding.Samples.BasicUsage
 {
     public sealed class BasicUsageExample : MonoBehaviour
     {
@@ -9,18 +9,18 @@ namespace JorisHoef.GenericUIItems.Samples.BasicUsage
         [SerializeField] private RectTransform parent;
         [SerializeField] private GameObject itemPrefab;
 
-        private GenericUIContainer<ExampleItemData, string> _container;
+        private UIBindingContainer<ExampleItemData, string> _container;
         private int _nextId = 3;
 
         private void Awake()
         {
             EnsureSetup();
 
-            _container = new GenericUIContainer<ExampleItemData, string>(
+            _container = new UIBindingContainer<ExampleItemData, string>(
                 parent,
                 itemPrefab,
                 item => item.Id,
-                new GraphicTintGenericUIItemVisual<string, ExampleItemData>(
+                new GraphicTintUIBindingItemVisual<string, ExampleItemData>(
                     new Color(0.12f, 0.16f, 0.20f, 0.9f),
                     new Color(0.16f, 0.42f, 0.95f, 1f),
                     new Color(0.20f, 0.24f, 0.28f, 1f)));

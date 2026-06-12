@@ -14,17 +14,17 @@ jobs:
       - name: Create package test project manifest
         shell: bash
         run: |
-          mkdir -p GenericUIItems-TestProject/Packages GenericUIItems-TestProject/Assets
+          mkdir -p UIBinding-TestProject/Packages UIBinding-TestProject/Assets
           package_path="${GITHUB_WORKSPACE}"
-          cat > GenericUIItems-TestProject/Packages/manifest.json <<JSON
+          cat > UIBinding-TestProject/Packages/manifest.json <<JSON
           {
             "dependencies": {
-              "com.jorishoef.generic-ui-items": "file:${package_path}",
+              "com.deucarian.ui-binding": "file:${package_path}",
               "com.unity.ugui": "1.0.0",
               "com.unity.test-framework": "1.1.33"
             },
             "testables": [
-              "com.jorishoef.generic-ui-items"
+              "com.deucarian.ui-binding"
             ]
           }
           JSON
@@ -36,7 +36,7 @@ jobs:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
-          projectPath: GenericUIItems-TestProject
+          projectPath: UIBinding-TestProject
           unityVersion: 2021.3.45f1
           testMode: editmode
 

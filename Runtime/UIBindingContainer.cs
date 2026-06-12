@@ -2,29 +2,29 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace JorisHoef.GenericUIItems
+namespace Deucarian.UIBinding
 {
-    public sealed class GenericUIContainer<T, TKey> :
-        IGenericUIContainer<T, TKey>,
-        IGenericUISelectionVisuals<TKey, T>
+    public sealed class UIBindingContainer<T, TKey> :
+        IUIBindingContainer<T, TKey>,
+        IUIBindingSelectionVisuals<TKey, T>
     {
         private readonly GenericItemManager<T, TKey> _itemManager;
-        private IGenericUIItemVisual<TKey, T> _itemVisual;
+        private IUIBindingItemVisual<TKey, T> _itemVisual;
         private bool _hasSelectedKey;
         private TKey _selectedKey;
         private bool _hasHoveredKey;
         private TKey _hoveredKey;
 
-        public GenericUIContainer(RectTransform parent, GameObject itemPrefab, Func<T, TKey> keySelector)
+        public UIBindingContainer(RectTransform parent, GameObject itemPrefab, Func<T, TKey> keySelector)
             : this(parent, itemPrefab, keySelector, null)
         {
         }
 
-        public GenericUIContainer(
+        public UIBindingContainer(
             RectTransform parent,
             GameObject itemPrefab,
             Func<T, TKey> keySelector,
-            IGenericUIItemVisual<TKey, T> itemVisual)
+            IUIBindingItemVisual<TKey, T> itemVisual)
         {
             Parent = parent != null
                 ? parent
@@ -57,7 +57,7 @@ namespace JorisHoef.GenericUIItems
             return _itemManager.TryGetItem(key, out item);
         }
 
-        public void SetItemVisual(IGenericUIItemVisual<TKey, T> itemVisual)
+        public void SetItemVisual(IUIBindingItemVisual<TKey, T> itemVisual)
         {
             if (!ReferenceEquals(_itemVisual, itemVisual))
             {
@@ -231,7 +231,7 @@ namespace JorisHoef.GenericUIItems
             _itemVisual.ApplyNormal(item.Key, item.Data, item.SettableItem);
         }
 
-        private void ApplyNormalToAll(IGenericUIItemVisual<TKey, T> itemVisual)
+        private void ApplyNormalToAll(IUIBindingItemVisual<TKey, T> itemVisual)
         {
             if (itemVisual == null)
             {

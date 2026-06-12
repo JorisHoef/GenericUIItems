@@ -132,8 +132,8 @@ MonoScript:
   m_Type: 0
   m_ExecutionOrder: 0
   m_ClassName: BasicUsageExample
-  m_Namespace: JorisHoef.GenericUIItems.Samples.BasicUsage
-  m_AssemblyName: GenericUIItems.Samples.BasicUsage
+  m_Namespace: Deucarian.UIBinding.Samples.BasicUsage
+  m_AssemblyName: UIBinding.Samples.BasicUsage
 --- !u!115 &1538462688
 MonoScript:
   m_ObjectHideFlags: 0
@@ -147,8 +147,8 @@ MonoScript:
   m_Type: 0
   m_ExecutionOrder: 0
   m_ClassName: BasicUsageSampleLayout
-  m_Namespace: JorisHoef.GenericUIItems.Samples.BasicUsage
-  m_AssemblyName: GenericUIItems.Samples.BasicUsage
+  m_Namespace: Deucarian.UIBinding.Samples.BasicUsage
+  m_AssemblyName: UIBinding.Samples.BasicUsage
 --- !u!115 &1538462689
 MonoScript:
   m_ObjectHideFlags: 0
@@ -162,8 +162,8 @@ MonoScript:
   m_Type: 0
   m_ExecutionOrder: 0
   m_ClassName: NestedCategoriesExample
-  m_Namespace: JorisHoef.GenericUIItems.Samples.BasicUsage
-  m_AssemblyName: GenericUIItems.Samples.BasicUsage
+  m_Namespace: Deucarian.UIBinding.Samples.BasicUsage
+  m_AssemblyName: UIBinding.Samples.BasicUsage
 --- !u!1 &1200000000
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,7 +207,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 1538462688}
   m_Name:
-  m_EditorClassIdentifier: GenericUIItems.Samples.BasicUsage::JorisHoef.GenericUIItems.Samples.BasicUsage.BasicUsageSampleLayout
+  m_EditorClassIdentifier: UIBinding.Samples.BasicUsage::Deucarian.UIBinding.Samples.BasicUsage.BasicUsageSampleLayout
   canvas: {fileID: 0}
   flatItemsParent: {fileID: 0}
   nestedCategoriesParent: {fileID: 0}
@@ -257,7 +257,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 1538462689}
   m_Name:
-  m_EditorClassIdentifier: GenericUIItems.Samples.BasicUsage::JorisHoef.GenericUIItems.Samples.BasicUsage.NestedCategoriesExample
+  m_EditorClassIdentifier: UIBinding.Samples.BasicUsage::Deucarian.UIBinding.Samples.BasicUsage.NestedCategoriesExample
   layout: {fileID: 1200000002}
   categoriesParent: {fileID: 0}
   categoryPrefab: {fileID: 0}
@@ -289,7 +289,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 1538462687}
   m_Name:
-  m_EditorClassIdentifier: GenericUIItems.Samples.BasicUsage::JorisHoef.GenericUIItems.Samples.BasicUsage.BasicUsageExample
+  m_EditorClassIdentifier: UIBinding.Samples.BasicUsage::Deucarian.UIBinding.Samples.BasicUsage.BasicUsageExample
   layout: {fileID: 1200000002}
   parent: {fileID: 0}
   itemPrefab: {fileID: 0}

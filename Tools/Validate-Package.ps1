@@ -7,9 +7,9 @@ $requiredFiles = @(
     "CHANGELOG.md",
     "LICENSE.md",
     "CONTRIBUTING.md",
-    "Runtime/GenericUIItems.asmdef",
-    "Tests/Editor/GenericUIItems.Tests.asmdef",
-    "Samples~/BasicUsage/GenericUIItems.Samples.BasicUsage.asmdef"
+    "Runtime/Deucarian.UIBinding.asmdef",
+    "Tests/Editor/Deucarian.UIBinding.Tests.asmdef",
+    "Samples~/BasicUsage/Deucarian.UIBinding.Samples.BasicUsage.asmdef"
 )
 
 $requiredDirectories = @(
@@ -35,7 +35,7 @@ foreach ($file in $requiredFiles) {
 }
 
 $package = Get-Content -LiteralPath (Join-Path $root "package.json") -Raw | ConvertFrom-Json
-if ($package.name -ne "com.jorishoef.generic-ui-items") {
+if ($package.name -ne "com.deucarian.ui-binding") {
     throw "Unexpected package name: $($package.name)"
 }
 
@@ -47,8 +47,8 @@ if ($package.dependencies."com.unity.ugui" -ne "1.0.0") {
     throw "Expected dependency com.unity.ugui version 1.0.0"
 }
 
-$runtimeAsmdef = Get-Content -LiteralPath (Join-Path $root "Runtime/GenericUIItems.asmdef") -Raw | ConvertFrom-Json
-if ($runtimeAsmdef.name -ne "GenericUIItems") {
+$runtimeAsmdef = Get-Content -LiteralPath (Join-Path $root "Runtime/Deucarian.UIBinding.asmdef") -Raw | ConvertFrom-Json
+if ($runtimeAsmdef.name -ne "Deucarian.UIBinding") {
     throw "Unexpected runtime asmdef name: $($runtimeAsmdef.name)"
 }
 
@@ -56,14 +56,14 @@ if ($runtimeAsmdef.references -contains "UnityEditor") {
     throw "Runtime asmdef must not reference UnityEditor"
 }
 
-$testAsmdef = Get-Content -LiteralPath (Join-Path $root "Tests/Editor/GenericUIItems.Tests.asmdef") -Raw | ConvertFrom-Json
-if ($testAsmdef.references -notcontains "GenericUIItems") {
-    throw "Tests asmdef must reference GenericUIItems"
+$testAsmdef = Get-Content -LiteralPath (Join-Path $root "Tests/Editor/Deucarian.UIBinding.Tests.asmdef") -Raw | ConvertFrom-Json
+if ($testAsmdef.references -notcontains "Deucarian.UIBinding") {
+    throw "Tests asmdef must reference Deucarian.UIBinding"
 }
 
-$sampleAsmdef = Get-Content -LiteralPath (Join-Path $root "Samples~/BasicUsage/GenericUIItems.Samples.BasicUsage.asmdef") -Raw | ConvertFrom-Json
-if ($sampleAsmdef.references -notcontains "GenericUIItems") {
-    throw "Sample asmdef must reference GenericUIItems"
+$sampleAsmdef = Get-Content -LiteralPath (Join-Path $root "Samples~/BasicUsage/Deucarian.UIBinding.Samples.BasicUsage.asmdef") -Raw | ConvertFrom-Json
+if ($sampleAsmdef.references -notcontains "Deucarian.UIBinding") {
+    throw "Sample asmdef must reference Deucarian.UIBinding"
 }
 
 $forbiddenProjectScaffolding = @("Assets", "Packages", "ProjectSettings")
@@ -80,4 +80,4 @@ if ($generatedArtifacts.Count -gt 0) {
     throw "Generated artifacts are present in the package repository."
 }
 
-Write-Host "GenericUIItems package validation passed."
+Write-Host "Deucarian UI Binding package validation passed."

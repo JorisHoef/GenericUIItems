@@ -14,7 +14,7 @@ $ErrorActionPreference = "Stop"
     -projectPath $ProjectPath `
     -runTests `
     -testPlatform editmode `
-    -assemblyNames GenericUIItems.Tests `
+    -assemblyNames Deucarian.UIBinding.Tests `
     -testResults (Join-Path $ProjectPath "TestResults.xml")
 
 if ($LASTEXITCODE -ne 0) {
